@@ -1,0 +1,17 @@
+README.md
+pyproject.toml
+mcp_paper_assistant/__init__.py
+mcp_paper_assistant/logging_config.py
+mcp_paper_assistant/settings.py
+mcp_paper_assistant.egg-info/PKG-INFO
+mcp_paper_assistant.egg-info/SOURCES.txt
+mcp_paper_assistant.egg-info/dependency_links.txt
+mcp_paper_assistant.egg-info/requires.txt
+mcp_paper_assistant.egg-info/top_level.txt
+mcp_paper_assistant/client/__init__.py
+mcp_paper_assistant/client/app.py
+mcp_paper_assistant/scripts/send_requests.py
+mcp_paper_assistant/server/__init__.py
+mcp_paper_assistant/server/app.py
+mcp_paper_assistant/tools/__init__.py
+mcp_paper_assistant/tools/search_paper.py

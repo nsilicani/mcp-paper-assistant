@@ -1,0 +1,22 @@
+[project]
+name = "mcp-paper-assistant"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+requires-python = ">=3.11"
+dependencies = [
+    "arxiv>=2.2.0",
+    "fastmcp>=2.10.2",
+    "pydantic>=2.11.7",
+    "pydantic-settings>=2.10.1",
+    "python-dateutil>=2.9.0.post0",
+    "python-dotenv>=1.1.1",
+    "ruff>=0.12.2",
+]
+
+[tool.ruff]
+# Set the maximum line length to 79.
+line-length = 79
+
+[tool.uv]
+package = true
