@@ -1,3 +1,4 @@
-from mcp_paper_assistant.client.app import main
+from .client_factory import ClientFactory
+from .client import main
 
 __all__ = ["main"]

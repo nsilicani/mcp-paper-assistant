@@ -33,7 +33,7 @@ def _process_paper(paper: arxiv.Result) -> Dict[str, Any]:
         "authors": [author.name for author in paper.authors],
         "abstract": paper.summary,
         "categories": paper.categories,
-        "published": paper.published.isoformat(),
+        "published": paper.published.strftime("%Y-%m-%d"),
         "url": paper.pdf_url,
         "resource_uri": f"arxiv://{paper.get_short_id()}",
     }

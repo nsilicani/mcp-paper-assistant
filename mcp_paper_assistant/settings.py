@@ -20,3 +20,9 @@ class ArxivSettings(BaseSettings):
     model_config = SettingsConfigDict(env_prefix='ARXIV_', case_sensitive=False)
 
     max_results: int = 10
+
+class ModelSettings(BaseSettings):
+    model_config = SettingsConfigDict(env_prefix='MODEL_', case_sensitive=False)
+
+    model: str
+    temperature: float = 0.2

@@ -1,13 +1,9 @@
-"""MCP server implementation with Echo tool"""
-
-import asyncio
-import os
 from typing import Optional
 
 from fastmcp import FastMCP
 
 
-from mcp_paper_assistant.tools import search_paper
+from mcp_paper_assistant.tools import search_paper, extract_search_arguments
 from mcp_paper_assistant.settings import ServerSettings
 from mcp_paper_assistant.logging_config import setup_logging, logger
 
@@ -30,21 +26,28 @@ def register_tools(mcp_server: FastMCP) -> None:
     """Register all MCP tools with the server"""
 
     @mcp_server.tool(name="search-tool", description="Search for papers on arXiv with advanced filtering")
-    def search_paper_wrapper(query: str, max_results: int, date_from: str, date_to: str):
-        search_paper(query, max_results, date_from, date_to)
+    def search_paper_wrapper(query: str, max_results: int, date_from: str | None = None, date_to: str | None = None):
+        return search_paper(query, max_results, date_from, date_to)
 
-def main() -> None:
-    if server_config is None:
-        server_config = ServerSettings()
+    @mcp_server.tool(name="extract-user-args", description="Extracts structured search parameters from user input")
+    def search_paper_wrapper(user_query: str,):
+        return extract_search_arguments(user_query)
 
-    # Create a server instance that can be imported by the MCP CLI
-    mcp_server = create_mcp_server()
+server_config = ServerSettings()
 
-    # Run the server with specified transport
+# Create a server instance that can be imported by the MCP CLI
+mcp_server = create_mcp_server(server_config=server_config)
+
+# Run the server with specified transport
+if server_config.transport == "http":
     mcp_server.run(
         transport=server_config.transport,
         host=server_config.host,
         port=server_config.port,
         path=server_config.path,
         log_level=server_config.log_level,
+    )
+elif server_config.transport == "stdio":
+    mcp_server.run(
+        transport=server_config.transport,
     )
