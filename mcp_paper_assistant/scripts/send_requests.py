@@ -4,7 +4,7 @@ import requests
 url = "http://localhost:3001/mcp/"
 headers = {
     "Content-Type": "application/json",
-    "Accept": "application/json, text/event-stream"
+    "Accept": "application/json, text/event-stream",
 }
 
 # Send the POST initializing request
@@ -16,11 +16,8 @@ data = {
     "params": {
         "protocolVersion": "2025-03-26",
         "capabilities": {},
-        "clientInfo": {
-            "name": "curl",
-            "version": "8.x"
-        }
-    }
+        "clientInfo": {"name": "curl", "version": "8.x"},
+    },
 }
 response = requests.post(url, headers=headers, json=data, stream=True)
 
@@ -31,15 +28,12 @@ session_id = response.headers.get("mcp-session-id")
 updated_headers = {
     "Content-Type": "application/json",
     "Accept": "application/json, text/event-stream",
-    "Mcp-Session-Id": session_id
+    "Mcp-Session-Id": session_id,
 }
 req_id += 1
 
 # Send the POST notification request for initialization complete
-notify_initialized = {
-    "jsonrpc": "2.0",
-    "method": "notifications/initialized"
-}
+notify_initialized = {"jsonrpc": "2.0", "method": "notifications/initialized"}
 notify_response = requests.post(
     url=url,
     headers=updated_headers,
@@ -54,7 +48,7 @@ req_id += 1
 payload_for_tools_list = {
     "jsonrpc": "2.0",
     "id": req_id,
-    "method": "tools/list"
+    "method": "tools/list",
 }
 response_tools_list = requests.post(
     url=url,
@@ -71,10 +65,7 @@ payload_for_tool_call = {
     "jsonrpc": "2.0",
     "id": req_id,
     "method": "tools/call",
-    "params": {
-        "name": "echo",
-        "arguments": {"text": "Hello World!"}
-    }
+    "params": {"name": "echo", "arguments": {"text": "Hello World!"}},
 }
 response_tool_call = requests.post(
     url=url,

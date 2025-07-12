@@ -7,7 +7,7 @@ def main():
     params = {
         "search_query": "all:electron",  # Search term
         "start": 0,
-        "max_results": 1
+        "max_results": 1,
     }
 
     # Make the GET request to arXiv API
@@ -22,11 +22,14 @@ def main():
         ns = {"atom": "http://www.w3.org/2005/Atom"}
 
         # Loop over each entry (paper)
-        for entry in root.findall('atom:entry', ns):
-            title = entry.find('atom:title', ns).text.strip()
-            summary = entry.find('atom:summary', ns).text.strip()
-            authors = [author.find('atom:name', ns).text for author in entry.findall('atom:author', ns)]
-            link = entry.find('atom:id', ns).text.strip()
+        for entry in root.findall("atom:entry", ns):
+            title = entry.find("atom:title", ns).text.strip()
+            summary = entry.find("atom:summary", ns).text.strip()
+            authors = [
+                author.find("atom:name", ns).text
+                for author in entry.findall("atom:author", ns)
+            ]
+            link = entry.find("atom:id", ns).text.strip()
 
             # Print the parsed info
             print("Title:", title)

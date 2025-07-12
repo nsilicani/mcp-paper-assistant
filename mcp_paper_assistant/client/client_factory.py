@@ -15,7 +15,9 @@ class ClientFactory:
         logger.info(f"Setting Client up with transport: {transport} ...")
 
         if transport == "http":
-            transport_url = f"http://{server_config.host}:{server_config.port}/mcp"
+            transport_url = (
+                f"http://{server_config.host}:{server_config.port}/mcp"
+            )
             return Client(transport=transport_url)
         elif transport == "streamable-http":
             raise NotImplementedError(f"Not implemented for {transport}")
@@ -26,7 +28,7 @@ class ClientFactory:
                 command="python",
                 args=["server.py", "--verbose"],
                 env={"LOG_LEVEL": server_config.log_level.upper()},
-                cwd=PATH_TO_SERVER.as_posix()
+                cwd=PATH_TO_SERVER.as_posix(),
             )
             return Client(transport=stdio_transport)
         else:

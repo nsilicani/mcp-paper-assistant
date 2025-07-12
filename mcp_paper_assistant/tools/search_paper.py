@@ -38,8 +38,14 @@ def _process_paper(paper: arxiv.Result) -> Dict[str, Any]:
         "resource_uri": f"arxiv://{paper.get_short_id()}",
     }
 
+
 # See https://github.com/blazickjp/arxiv-mcp-server/blob/main/src/arxiv_mcp_server/tools/search.py#L60
-async def search_paper(query: str, max_results: int, date_from: Optional[str] = None, date_to: Optional[str] = None) -> Union[ToolResult, ToolError]:
+async def search_paper(
+    query: str,
+    max_results: int,
+    date_from: Optional[str] = None,
+    date_to: Optional[str] = None,
+) -> Union[ToolResult, ToolError]:
     client = arxiv.Client()
     search = arxiv.Search(
         query=query,
@@ -60,7 +66,7 @@ async def search_paper(query: str, max_results: int, date_from: Optional[str] = 
         )
     except (ValueError, TypeError) as e:
         return ToolError(e)
-    
+
     for paper in client.results(search):
         if _is_within_date_range(paper.published, date_from, date_to):
             results.append(_process_paper(paper))

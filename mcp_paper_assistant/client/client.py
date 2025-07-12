@@ -14,18 +14,24 @@ TRANSPORT = f"http://{SERVER_HOST}:{SERVER_PORT}/mcp"
 
 client = Client(transport=TRANSPORT)
 
+
 async def main():
     server_config = ServerSettings()
     client = ClientFactory.create_client(server_config)
     async with client:
-
         # Generate arguments
         # search_args = await client.call_tool("extract-user-args", {"user_query": "What's the new papers about fraud detection models?"})
-        search_args = {"query": "Email classification with ML", "max_results": 3, "date_from": None}
+        search_args = {
+            "query": "Email classification with ML",
+            "max_results": 3,
+            "date_from": None,
+        }
         # print(search_args)
-        
+
         # Execute operations
-        call_tool_result = await client.call_tool("search-tool", arguments=search_args)
+        call_tool_result = await client.call_tool(
+            "search-tool", arguments=search_args
+        )
 
         papers_list = []
         for res in call_tool_result.content:

@@ -8,7 +8,9 @@ from mcp_paper_assistant.settings import ServerSettings
 from mcp_paper_assistant.logging_config import setup_logging, logger
 
 
-def create_mcp_server(server_config: Optional[ServerSettings] = None) -> FastMCP:
+def create_mcp_server(
+    server_config: Optional[ServerSettings] = None,
+) -> FastMCP:
     """Create and configure the MCP server instance"""
 
     # Set up logging first
@@ -25,13 +27,27 @@ def create_mcp_server(server_config: Optional[ServerSettings] = None) -> FastMCP
 def register_tools(mcp_server: FastMCP) -> None:
     """Register all MCP tools with the server"""
 
-    @mcp_server.tool(name="search-tool", description="Search for papers on arXiv with advanced filtering")
-    def search_paper_wrapper(query: str, max_results: int, date_from: str | None = None, date_to: str | None = None):
+    @mcp_server.tool(
+        name="search-tool",
+        description="Search for papers on arXiv with advanced filtering",
+    )
+    def search_paper_wrapper(
+        query: str,
+        max_results: int,
+        date_from: str | None = None,
+        date_to: str | None = None,
+    ):
         return search_paper(query, max_results, date_from, date_to)
 
-    @mcp_server.tool(name="extract-user-args", description="Extracts structured search parameters from user input")
-    def search_paper_wrapper(user_query: str,):
+    @mcp_server.tool(
+        name="extract-user-args",
+        description="Extracts structured search parameters from user input",
+    )
+    def search_paper_wrapper(
+        user_query: str,
+    ):
         return extract_search_arguments(user_query)
+
 
 server_config = ServerSettings()
 
