@@ -23,7 +23,7 @@ You can use fastmcp CLI. From project root, run:
 fastmcp run .\mcp_paper_assistant\server\server.py:mcp_server
 ```
 
-Note: the FastMCP CLI completely ignores the `if __name_` section, meaning that the transport needs to be provided on the command line
+Note: the FastMCP CLI completely ignores the `if __name__` section, meaning that the transport needs to be provided on the command line
 
 ## Interact with Server
 
