@@ -11,6 +11,7 @@ from fastmcp.exceptions import ToolError
 from dotenv import load_dotenv
 
 from mcp_paper_assistant.settings import ModelSettings
+from mcp_paper_assistant.logging_config import logger
 
 load_dotenv()
 
@@ -33,6 +34,11 @@ model_settings = ModelSettings()
 async def extract_search_arguments(
     user_query: str,
 ) -> Dict[str, Optional[str]]:
+    # return {
+    #         "query": "Email classification with ML",
+    #         "max_results": 3,
+    #         "date_from": None,
+    # }
     client = AsyncOpenAI()
     MODEL = model_settings.model
     TEMPERATURE = model_settings.temperature
@@ -43,6 +49,7 @@ async def extract_search_arguments(
     ]
 
     try:
+        logger.info("Sending request to OpenAI ...")
         response = await client.chat.completions.create(
             model=MODEL,
             messages=messages,
@@ -85,10 +92,9 @@ async def extract_search_arguments(
             function_call={"name": "generate_search_args"},
         )
 
-        function_args = response.choices[0]["message"]["function_call"][
-            "arguments"
-        ]
+        function_args = response.choices[0].message.function_call.arguments
         parsed_args = json.loads(function_args)
+        logger.info(f"OpenAI response: {parsed_args}...")
 
         return ToolResult(structured_content=parsed_args)
     except Exception as e:

@@ -31,5 +31,10 @@ Note: the FastMCP CLI completely ignores the `if __name_` section, meaning that 
 python .\mcp_paper_assistant\client\client.py
 ```
 
+## Start the app
+```bash
+streamlit run app.py --browser.serverAddress localhost
+```
+
 ## Resources
 - [MCP inspector](https://medium.com/@laurentkubaski/how-to-use-mcp-inspector-2748cd33faeb)

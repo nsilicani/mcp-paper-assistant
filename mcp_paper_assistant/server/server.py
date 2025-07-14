@@ -43,7 +43,7 @@ def register_tools(mcp_server: FastMCP) -> None:
         name="extract-user-args",
         description="Extracts structured search parameters from user input",
     )
-    def search_paper_wrapper(
+    def extract_search_arguments_wrapper(
         user_query: str,
     ):
         return extract_search_arguments(user_query)

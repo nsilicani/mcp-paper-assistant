@@ -1,4 +1,4 @@
 from .client_factory import ClientFactory
-from .client import main
+from .client import McpClient
 
 __all__ = ["main"]
